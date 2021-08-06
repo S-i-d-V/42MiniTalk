@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 19:59:19 by user42            #+#    #+#             */
-/*   Updated: 2021/08/06 22:30:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/07 00:20:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ char	*char_to_binary(int c)
 		{
 			tab[i] = 0;
 			if (c > 0)
-			{
-				tab[i] = c % 2;
-				c = c / 2;
-			}
+				tab[i] = get_binary(&c);
 			i++;
 		}
 		binary = malloc(sizeof(char) * 8 + 1);
@@ -64,6 +61,21 @@ void	msg_to_binary(t_client *client, char *msg)
 	client->binary_msg[i + 1] = NULL;
 }
 
+void	send_signals(t_client *client, int i, int j)
+{
+	usleep(50);
+	if (client->binary_msg[i][j] == '0')
+	{
+		if (kill(client->pid, SIGUSR1) == -1)
+			client_exit(client, -1);
+	}
+	else if (client->binary_msg[i][j] == '1')
+	{
+		if (kill(client->pid, SIGUSR2) == -1)
+			client_exit(client, -1);
+	}
+}
+
 void	send_msg(t_client *client, char *msg)
 {
 	int	i;
@@ -77,17 +89,7 @@ void	send_msg(t_client *client, char *msg)
 		usleep(50);
 		while (j < 8)
 		{
-			usleep(50);
-			if (client->binary_msg[i][j] == '0')
-			{
-				if (kill(client->pid, SIGUSR1) == -1)
-					client_exit(client, -1);
-			}
-			else if (client->binary_msg[i][j] == '1')
-			{
-				if (kill(client->pid, SIGUSR2) == -1)
-					client_exit(client, -1);
-			}
+			send_signals(client, i, j);
 			j++;
 		}
 		i++;

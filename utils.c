@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 17:39:29 by user42            #+#    #+#             */
-/*   Updated: 2021/08/06 22:25:45 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/07 00:20:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,13 @@ char	*ft_strdup(const char *s)
 	}
 	dup[i] = '\0';
 	return (dup);
+}
+
+int	get_binary(int *c)
+{
+	int	ret;
+
+	ret = *c % 2;
+	*c = *c / 2;
+	return (ret);
 }

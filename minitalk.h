@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 19:59:17 by user42            #+#    #+#             */
-/*   Updated: 2021/08/06 22:25:45 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/07 00:20:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_client
 int		ft_strlen(const char *str);
 int		ft_atoi(const char *str);
 char	*ft_strdup(const char *s);
+int		get_binary(int *c);
 
 void	client_exit(t_client *client, int err);
 void	server_exit(int err);
