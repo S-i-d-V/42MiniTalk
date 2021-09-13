@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 19:59:19 by user42            #+#    #+#             */
-/*   Updated: 2021/08/07 00:20:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/13 22:54:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	send_msg(t_client *client, char *msg)
 	while (client->binary_msg[i])
 	{
 		j = 0;
-		usleep(50);
+		usleep(75);
 		while (j < 8)
 		{
 			send_signals(client, i, j);
@@ -109,5 +109,4 @@ int	main(int ac, char **av)
 	}
 	else
 		printf("[ERREUR] parametres incorrectes. (./client PID \"message\")\n");
-	client_exit(&client, 0);
 }

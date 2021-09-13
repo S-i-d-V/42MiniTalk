@@ -1,7 +1,7 @@
 .SILENT:
 
 #GENERAL
-GCC = gcc
+CC = clang
 CCFLAGS = -Wall -Werror -Wextra
 CD = cd
 MV = mv
@@ -26,24 +26,24 @@ OBJS = $(SRCS:.c=.o)
 
 #RULES
 .c.o:
-	@$(GCC)$(CCFLAG) -c $< -o $@
+	$(CC) $(CCFLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
 	@ranlib $(NAME)
-	@echo "$(GREEN)$(NAME) compiled with success.$(CLEAR)"
-	@$(GCC)$(CCFLAG) client.c -o $(EXEC_CLIENT) $(NAME)
-	@$(GCC)$(CCFLAG) server.c -o $(EXEC_SERVER) $(NAME)
 	@echo "$(GREEN)$(EXEC_CLIENT) & $(EXEC_SERVER) compiled with success.$(CLEAR)"
-
+	@$(CC) server.c $(NAME) -o server
+	@$(CC) client.c $(NAME) -o client
+ 
 clean:
-	@$(RM) $(OBJS)
 	@echo "$(RED)objects files removed.$(CLEAR)"
+	$(RM) $(OBJS)
 
-fclean: clean
-	@$(RM) $(NAME) $(EXEC_CLIENT) $(EXEC_SERVER)
+fclean:	clean
 	@echo "$(RED)$(EXEC_CLIENT) & $(EXEC_SERVER) removed.$(CLEAR)"
+	$(RM) $(NAME)
+	$(RM) $(EXEC_CLIENT) $(EXEC_SERVER)
 
-re: fclean all
+re : fclean all
